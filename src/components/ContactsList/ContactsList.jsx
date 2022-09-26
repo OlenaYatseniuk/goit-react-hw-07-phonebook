@@ -21,6 +21,10 @@ function ContactsList() {
     dispatch(getContacts());
   }, [dispatch]);
 
+  if(!contacts.length){
+    return <div>There are no contacts here=( Please add a new contact.</div>
+  }
+
   return (
     <ul className={s.list}>
       {filteredContacts.map(({ name, id, phone }) => (
