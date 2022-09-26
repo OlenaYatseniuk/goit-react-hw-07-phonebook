@@ -1,1 +1,1 @@
-# PhoneBook task 6 - refactored on redux toolkit
+# PhoneBook task 7 - refactored on redux async thunks

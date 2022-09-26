@@ -1,14 +1,15 @@
-import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import s from './ContactForm.module.css';
 import { toast } from 'react-toastify';
-import { addNewContactAction } from 'redux/contacts/actions.contacts';
+
+import { getALLContacts } from 'redux/contacts/selectors.contacts';
+import { addNewContact } from 'redux/contacts/operations.contacts';
 
 function ContactForm() {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
-  const contacts = useSelector(state => state.items.contacts);
+  const [phone, setPhone] = useState('');
+  const contacts = useSelector(getALLContacts);
   const dispatch = useDispatch();
 
   const createNewContact = newContact => {
@@ -20,12 +21,12 @@ function ContactForm() {
       toast.error(`${newContact.name} is already in your contacts list`);
       return;
     }
-    dispatch(addNewContactAction(newContact));
+    dispatch(addNewContact(newContact));
   };
 
   const handleSubmitForm = event => {
     event.preventDefault();
-    const newContact = { id: nanoid(), name, number };
+    const newContact = { name, phone };
     createNewContact(newContact);
     resetForm();
   };
@@ -34,14 +35,14 @@ function ContactForm() {
     const { name, value } = event.target;
     if (name === 'name') {
       setName(value);
-    } else if (name === 'number') {
-      setNumber(value);
+    } else if (name === 'phone') {
+      setPhone(value);
     }
   };
 
   const resetForm = () => {
     setName('');
-    setNumber('');
+    setPhone('');
   };
 
   return (
@@ -64,9 +65,9 @@ function ContactForm() {
         <input
           onChange={handleInputChange}
           className={s.input}
-          value={number}
+          value={phone}
           type="tel"
-          name="number"
+          name="phone"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required

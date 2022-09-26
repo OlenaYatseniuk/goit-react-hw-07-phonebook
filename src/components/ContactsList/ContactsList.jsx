@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ContactsItem from './ContactsItem';
 import s from './ContactsList.module.css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getContacts } from 'redux/contacts/operations.contacts';
+import { getALLContacts } from 'redux/contacts/selectors.contacts';
 
 function ContactsList() {
-  const contacts = useSelector(state => state.items.contacts);
+  const contacts = useSelector(getALLContacts);
+  const dispatch = useDispatch();
 
   const filter = useSelector(state => state.items.filter);
   const identicFilter = filter.toLowerCase();
@@ -13,10 +17,14 @@ function ContactsList() {
     name.toLowerCase().includes(identicFilter)
   );
 
+  useEffect(() => {
+    dispatch(getContacts());
+  }, [dispatch]);
+
   return (
     <ul className={s.list}>
-      {filteredContacts.map(({ name, id, number }) => (
-        <ContactsItem name={name} key={id} id={id} number={number} />
+      {filteredContacts.map(({ name, id, phone }) => (
+        <ContactsItem name={name} key={id} id={id} phone={phone} />
       ))}
     </ul>
   );
@@ -27,7 +35,7 @@ ContactsList.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
     })
   ),
 };
