@@ -6,8 +6,13 @@ import Filter from './Filter';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from 'react-redux';
+import Loader from './Loader';
+
 
 export function App() {
+  const {isLoading} = useSelector(state => state.items.contacts);
+  console.log(isLoading)
   return (
     <>
       <Section title="PhoneBook">
@@ -17,6 +22,7 @@ export function App() {
       </Section>
       <Section title="Contacts">
         <Container>
+          {isLoading && <Loader/>}
           <Filter />
           <ContactsList />
         </Container>
