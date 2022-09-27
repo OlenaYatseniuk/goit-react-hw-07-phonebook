@@ -1,13 +1,17 @@
 .item{
 margin-bottom: 15px;
-/* display: flex;
-justify-content: start; */
+display: flex;
+align-items: center;
+justify-content: space-between;
 }
 
 .spanName{
   margin-right: 15px;
-  font-weight: 500;
+  min-width: 200px;
+  font-weight: 700;
   font-style: italic;
+  text-align: start;
+  text-transform: uppercase;
 }
 
 .spanTel{

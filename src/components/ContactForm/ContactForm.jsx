@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import s from './ContactForm.module.css';
 import { toast } from 'react-toastify';
 
-import { getALLContacts } from 'redux/contacts/selectors.contacts';
+import { getALLContacts} from 'redux/contacts/selectors.contacts';
 import { addNewContact } from 'redux/contacts/operations.contacts';
 
 function ContactForm() {

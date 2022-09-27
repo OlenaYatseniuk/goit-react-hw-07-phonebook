@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import s from './ContactsItem.module.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/contacts/operations.contacts';
+import { getIsLoading } from 'redux/contacts/selectors.contacts';
 
 function ContactsItem({ id, name, phone }) {
   const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoading);
 
   const handleDelete = contactId => {
     dispatch(deleteContact(contactId));
@@ -20,6 +22,7 @@ function ContactsItem({ id, name, phone }) {
         type="button"
         name="delete"
         onClick={() => handleDelete(id)}
+        disabled ={isLoading}
       >
         Delete
       </button>
@@ -33,3 +36,5 @@ ContactsItem.propTypes = {
 };
 
 export default ContactsItem;
+
+
