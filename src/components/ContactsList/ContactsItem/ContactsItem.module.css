@@ -26,8 +26,12 @@ justify-content: space-between;
   scale: 1;
 }
 
-.button:hover{
+.button:hover:not(:disabled){
   scale: 1.1;
   background-color:rgb(212, 66, 46);
   color: beige;
+}
+
+.button:disabled{
+  cursor:not-allowed;
 }
