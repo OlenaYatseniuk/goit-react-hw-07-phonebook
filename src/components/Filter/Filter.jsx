@@ -3,10 +3,11 @@ import s from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterContactsAction } from 'redux/filter/action.filter';
 import { getALLContacts } from 'redux/contacts/selectors.contacts';
+import { getFilter } from 'redux/filter/selectors.filter';
 
 function Filter() {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.items.filter);
+  const filter = useSelector(getFilter);
   const contacts = useSelector(getALLContacts);
 
   const handleFilterInput = event => {

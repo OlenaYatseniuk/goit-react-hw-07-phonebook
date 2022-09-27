@@ -7,48 +7,40 @@ import {
 import { createSlice } from '@reduxjs/toolkit';
 import  initialState from './initialState.contacts';
 
+const handlePending = state => {
+  state.isLoading = true;
+  state.error = null;
+}
+
+const handleRejected = (state, {payload})=>{
+  state.isLoading = false;
+  state.error = payload;
+}
+
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   extraReducers: {
-    [getContacts.pending]: state => {
-      state.isLoading = true;
-      state.error = null;
-    },
+    [getContacts.pending]: handlePending,
     [getContacts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.items = payload;
     },
-    [getContacts.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      state.error = payload;
-    },
+    [getContacts.rejected]: handleRejected,
 
-    [addNewContact.pending]: state => {
-      state.isLoading = true;
-      state.error = null;
-    },
+    [addNewContact.pending]: handlePending,
     [addNewContact.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.items.unshift(payload);
+      state.items.push(payload);
     },
-    [addNewContact.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      state.error = payload;
-    },
+    [addNewContact.rejected]: handleRejected,
 
-    [deleteContact.pending]: state => {
-      state.isLoading = true;
-      state.error = null;
-    },
+    [deleteContact.pending]: handlePending,
     [deleteContact.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.items = state.items.filter(item => item.id !== payload);
     },
-    [deleteContact.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      state.error = payload;
-    },
+    [deleteContact.rejected]: handleRejected,
   },
 });
 

@@ -6,12 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getContacts } from 'redux/contacts/operations.contacts';
 import { getALLContacts } from 'redux/contacts/selectors.contacts';
+import { getFilter } from 'redux/filter/selectors.filter';
 
 function ContactsList() {
   const contacts = useSelector(getALLContacts);
   const dispatch = useDispatch();
 
-  const filter = useSelector(state => state.items.filter);
+  const filter = useSelector(getFilter);
   const identicFilter = filter.toLowerCase();
   const filteredContacts = contacts.filter(({ name }) =>
     name.toLowerCase().includes(identicFilter)

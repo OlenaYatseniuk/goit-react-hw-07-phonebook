@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import ContactForm from './ContactForm';
 import ContactsList from './ContactsList';
 import Container from './Container';
@@ -6,13 +7,13 @@ import Filter from './Filter';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from 'react-redux';
 import Loader from './Loader';
+import { getIsLoading } from 'redux/contacts/selectors.contacts';
 
 
 export function App() {
-  const {isLoading} = useSelector(state => state.items.contacts);
-  console.log(isLoading)
+  const isLoading = useSelector(getIsLoading);
+
   return (
     <>
       <Section title="PhoneBook">
