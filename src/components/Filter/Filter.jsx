@@ -26,6 +26,7 @@ function Filter() {
         value={filter}
         name="filter"
         onChange={handleFilterInput}
+        placeholder='start type a name'
       ></input>
     </label>
     )

@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import s from './ContactsItem.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import { deleteContact } from 'redux/contacts/operations.contacts';
 import { ColorRing } from 'react-loader-spinner';
 
 function ContactsItem({ id, name, phone }) {
   const dispatch = useDispatch();
-  const isDeleting = useSelector(state => state.items.contacts.isDeleting);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = contactId => {
+    setIsLoading(true);
     dispatch(deleteContact(contactId));
   };
 
@@ -22,8 +24,8 @@ function ContactsItem({ id, name, phone }) {
         type="button"
         name="delete"
         onClick={() => handleDelete(id)}
-        disabled ={isDeleting}
-      >{isDeleting && <ColorRing height='30' width='30' colors={['#b8c480', '#B2A3B5', '#F4442E', '#51E5FF', '#429EA6']}/> }
+        disabled ={isLoading}
+      >{isLoading && <ColorRing height='20' width='20' colors={['#b8c480', '#B2A3B5', '#F4442E', '#51E5FF', '#429EA6']}/> }
         Delete
       </button>
     </li>

@@ -19,10 +19,7 @@ export function App() {
       <Section title="PhoneBook">
         <Container>
           <ContactForm />
-        </Container>
-      </Section>
-      <Section title="Contacts">
-        <Container>
+          <h2 className='titleContacts'>Contacts</h2>
           {isLoading && <Loader/>}
           <Filter />
           <ContactsList />
